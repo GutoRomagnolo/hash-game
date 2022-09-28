@@ -1,0 +1,40 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    margin: 0;
+    background-color: #dddd;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border: #000 solid thin; 
+    box-shadow: #000;
+    background-color: #dddd;
+}
+
+.form-step {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    justify-content: space-around;
+    transition: all 0.1s ease-in-out;
+}
+
+.ghost-input {
+    display: none;
+    transition: all 0.1s ease-in-out;
+}
