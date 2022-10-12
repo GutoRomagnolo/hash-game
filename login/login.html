@@ -4,18 +4,18 @@
 	<meta charset="UTF-8" />
 	<title>Hash Game</title>
 	<link rel="icon" href=""/>
-	<link rel="stylesheet" href="hash.css"/>
-	<link rel="stylesheet" href="./../normalize.css"/>
-	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="./../reset.css"/>
+  <link rel="stylesheet" href="login.css"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto&display=swap">
 </head>
 
 <body>
 	<header>
-		<h1>Tic Toe Game</h1>
+		<h1>Tic Tac Toe <br>Game</h1>
 	</header>
 	<section class="main-container">
 		<form action="#" id="login-form" onsubmit="preventRefresh(event)" class="login-form">
-      <h3>Login</h3>
+      <h3>Enter both player's names</h3>
       <input 
         name="firstname" 
         placeholder="Enter first name" 
@@ -36,21 +36,12 @@
         onclick="submitForm()"
         disabled
       >
-        Let's play!
+        <p>Play</p>
+        <img src="./../assets/icon-foward.svg" class="icon-disabled">
       </button>
 		</form>
-
-    <section id="choose-form" class="choose-form hide-element">
-      <p id="choose-title">Player 1, choose your side</p>
-      <div class="select-side">
-        <button id="cross-choice" name="possible-choice" class="cross-button" onclick="handleChoice()">
-        </button>
-        <button id="circle-choice" name="possible-choice" class="circle-button" onclick="handleChoice()">
-        </button>
-      </div>
-    </section>
 	</section>
 </body>
 
-<script src="./hash.js" type="text/javascript"></script>
+<script src="./login.js" type="text/javascript"></script>
 </html>

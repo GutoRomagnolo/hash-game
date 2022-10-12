@@ -1,0 +1,136 @@
+@font-face {
+  font-family: standardFont;
+  src: url('./../assets/creditverse.ttf');
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  align-items: center;
+  font-family: standardFont, sans-serif;
+  background: linear-gradient(184deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 49%, rgba(80,80,80,1) 100%);
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  justify-content: center;
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+  line-height: 6rem;
+  background-image: linear-gradient(110.1deg, rgb(241, 115, 30) 18.9%, rgb(231, 29, 54) 90.7%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-stroke: 0.100rem #ffff;
+  -moz-text-stroke: 0.100rem #ffff;
+  padding-bottom: 3rem;
+  font-family: standardFont;
+}
+
+h3 {
+  font-size: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+button {
+  font-family: standardFont;
+}
+
+header {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  box-shadow: rgba(0, 0, 0, 0.29) 0 0.188rem 0.5rem;
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+.standard-input {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  background-color: #7e7e7e1a;
+  border: none;
+  font-family: standardFont;
+  height: 2rem;
+  width: 100%;
+}
+
+.standard-input:hover {
+  background-color: #4545451a;
+}
+
+.form-step {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  justify-content: space-around;
+  transition: all 0.1s ease-in-out;
+}
+
+.choose-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select-side {
+  display: flex;
+}
+
+.cross-button {
+  display: flex;
+  background: url(./../assets/icon-cross.svg);
+  background-repeat: no-repeat;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.circle-button {
+  display: flex;
+  background: url(./../assets/icon-circle.svg);
+  background-repeat: no-repeat;
+  width: 5rem;
+  height: 5rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+/* .cross-button:hover, .circle-button:hover {
+  transform: scale(1.05);
+} */
+
+.icon-foward {
+  width: 1.5rem;
+}
+
+.submit-button {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.icon-disabled svg path {
+  fill: red !important;
+}
+
+.hide-element {
+  display: none;
+  transition: all 0.1s ease-in-out;
+}
