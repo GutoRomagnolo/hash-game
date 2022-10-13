@@ -4,6 +4,19 @@ const playersIdentifier = document.getElementById('players-names');
 const boardCells = document.querySelectorAll('.cell');
 const players = []
 const gameStart = true;
+const currentPlayer = null;
+
+const winConditions = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6]
+];
+
 
 const registerPlayersNames = () => {
   const playersNames = getNamesFromLocalStorage();
@@ -13,7 +26,8 @@ const registerPlayersNames = () => {
     { name: playersNames[1] }
   )
 
-  document.getElementById('choose-title').innerHTML = `<strong>${players[0].name}</strong>, choose your size!`
+  currentPlayer = players[0];
+  document.getElementById('choose-title').innerHTML = `<strong>${currentPlayer.name}</strong>, choose your size!`
 }
 
 const getNamesFromLocalStorage = () => {
@@ -50,6 +64,24 @@ const registerPlayerChoice = (choice) => {
   hideElements([chooseForm])
   showElements([gameBoard, playersIdentifier])
   listenCellClicks()
+}
+
+const isValidTurn = (clickedCell) => {
+  if (clickedCell.innerText === 'X' || clickedCell.innerText === 'O'){
+    return false;
+  }
+
+  return true;
+};
+
+const userAction = (clickedCell, index) => {
+  if(isValidTurn(clickedCell) && isGameActive) {
+    clickedCell.innerText = currentPlayer;
+    clickedCell.classList.add(`player${currentPlayer}`);
+    updateBoard(index);
+    handleResultValidation();
+    changePlayer();
+  }
 }
 
 const returnGame = () => {

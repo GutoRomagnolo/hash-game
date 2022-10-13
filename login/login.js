@@ -1,6 +1,7 @@
 const loginForm = document.getElementById('login-form')
 const loginInputs = document.querySelectorAll('input')
 const submitButton = document.getElementById('submit-button')
+const iconForward = document.getElementById('icon-forward')
 const inputValidator = {
   firstname: false,
   secondname: false
@@ -25,9 +26,13 @@ const checkInputsValidity = () => {
   const inputKeys = Object.keys(inputValidator)
   const allInputsAreValid = inputKeys.every(key => inputValidator[key] === true)
 
-  allInputsAreValid 
-    ? submitButton.disabled = false 
-    : submitButton.disabled = true
+  if (allInputsAreValid) {
+    submitButton.disabled = false
+    disablePlayButton(true)
+  } else {
+    submitButton.disabled = true
+    disablePlayButton(false)
+  }
 }
 
 const hideElements = (elementsToHide) => {
@@ -38,16 +43,16 @@ const showElements = (elementsToShow) => {
   elementsToShow.forEach(element => element.classList.remove('hide-element'))
 }
 
+const disablePlayButton = state => {
+  state
+    ? iconForward.classList.remove('icon-disabled')
+    : iconForward.classList.add('icon-disabled')
+}
+
 const submitForm = () => {
   const playersNames = Array.from(loginInputs).map(input => input.value)
-  // registerPlayersNames(playersNames)
   populateLocalStorage(playersNames)
   window.location.replace('./../hash/hash.html');
-
-  // hideElements([loginForm])
-  // showElements([chooseForm])
-
-  // document.getElementById('choose-title').innerHTML = `<strong>${players[0].name}</strong> choose your size!`
 }
 
 const preventRefresh = event => {

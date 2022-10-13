@@ -1,19 +1,41 @@
+@font-face {
+  font-family: standardFont;
+  src: url('./../assets/creditverse.ttf');
+}
+
 body {
   display: flex;
   flex-direction: column;
   margin: 0;
   align-items: center;
   font-family: 'Roboto', sans-serif;
+  background: linear-gradient(184deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 49%, rgba(80,80,80,1) 100%);
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 header {
   margin: 0;
-  background-color: #dddd;
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+h1 {
+  font-size: 4rem;
+  text-align: center;
+  line-height: 6rem;
+  background-image: linear-gradient(110.1deg, rgb(241, 115, 30) 18.9%, rgb(231, 29, 54) 90.7%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+  -webkit-text-stroke: 0.100rem #ffff;
+  -moz-text-stroke: 0.100rem #ffff;
+  padding-bottom: 3rem;
+  font-family: standardFont;
 }
 
 .return-container {
@@ -27,6 +49,7 @@ header {
   padding-left: 2rem;
   gap: 0.5rem;
   transition: all 0.1s ease-in-out;
+  color: #dddd;
 }
 
 .return-container:hover {
