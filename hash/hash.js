@@ -119,11 +119,10 @@ const checkTieConditions = () => {
 
 const checkWinConditions = () => {
   winConditions.forEach(winCondition => {
-    const playerWin = winCondition.every((condition, index) => {
-      return condition === currentPlayer.markedCells[index]
-    })
+    const playerOneWin = winCondition.every(condition => playerOne.markedCells.includes(condition))
+    const playerTwoWin = winCondition.every(condition => playerTwo.markedCells.includes(condition))
 
-    if (playerWin) {
+    if (playerOneWin || playerTwoWin ) {
       gameIsRunning = false;
       announceWinner();
     }
