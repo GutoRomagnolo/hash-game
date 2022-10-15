@@ -26,13 +26,9 @@ const checkInputsValidity = () => {
   const inputKeys = Object.keys(inputValidator)
   const allInputsAreValid = inputKeys.every(key => inputValidator[key] === true)
 
-  if (allInputsAreValid) {
-    submitButton.disabled = false
-    disablePlayButton(true)
-  } else {
-    submitButton.disabled = true
-    disablePlayButton(false)
-  }
+  allInputsAreValid
+    ? submitButton.disabled = false
+    : submitButton.disabled = true
 }
 
 const hideElements = (elementsToHide) => {
@@ -41,12 +37,6 @@ const hideElements = (elementsToHide) => {
 
 const showElements = (elementsToShow) => {
   elementsToShow.forEach(element => element.classList.remove('hide-element'))
-}
-
-const disablePlayButton = state => {
-  state
-    ? iconForward.classList.remove('icon-disabled')
-    : iconForward.classList.add('icon-disabled')
 }
 
 const submitForm = () => {

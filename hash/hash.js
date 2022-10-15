@@ -1,10 +1,18 @@
 const chooseForm = document.getElementById('choose-form');
 const gameBoard = document.getElementById('game-board');
 const playersIdentifier = document.getElementById('players-names');
-const boardCells = document.querySelectorAll('.cell');
-const players = []
-const gameStart = true;
-const currentPlayer = null;
+const boardCells = document.querySelectorAll('.board-cell');
+const playerChooseRequest = document.getElementById('choose-title');
+const playerTurnAnnouncement = document.getElementById('player-turn-announcement');
+const winnerAnnouncement = document.getElementById('winner-announcement');
+const tieAnnouncement = document.getElementById('tie-announcement');
+
+const playerOne = { markedCells: [] };
+const playerTwo = { markedCells: [] };
+const boardMarks = []
+
+let currentPlayer = null;
+let gameIsRunning = true;
 
 const winConditions = [
   [0, 1, 2],
@@ -17,17 +25,14 @@ const winConditions = [
   [2, 4, 6]
 ];
 
-
 const registerPlayersNames = () => {
   const playersNames = getNamesFromLocalStorage();
   
-  players.push(
-    { name: playersNames[0] },
-    { name: playersNames[1] }
-  )
+  playerOne.name = playersNames[0]
+  playerTwo.name = playersNames[1]
 
-  currentPlayer = players[0];
-  document.getElementById('choose-title').innerHTML = `<strong>${currentPlayer.name}</strong>, choose your size!`
+  currentPlayer = playerOne;
+  playerChooseRequest.innerHTML = `<strong>${currentPlayer.name}</strong>, choose your size!`
 }
 
 const getNamesFromLocalStorage = () => {
@@ -44,7 +49,10 @@ const showElements = (elementsToShow) => {
 }
 
 const listenUserChoice = () => {
-  const possibleChoices = document.getElementsByName('possible-choice')
+  const crossChoice = document.getElementById('cross-choice');
+  const circleChoice = document.getElementById('circle-choice');
+  const possibleChoices = [crossChoice, circleChoice]
+
   possibleChoices.forEach(choice => {
     choice.addEventListener('click', () => {
       registerPlayerChoice(choice)
@@ -52,36 +60,98 @@ const listenUserChoice = () => {
   })
 }
 
-const registerPlayerChoice = (choice) => {
-  if(choice.id === 'cross-choice') {
-    players[0].choice = 'cross'
-    players[1].choice = 'circle'
-  } else {
-    players[0].choice = 'circle'
-    players[1].choice = 'cross'
-  }
+const listenPlayersActions = () => {
+  boardCells.forEach(cell => {
+    cell.addEventListener('click', () => {
+      const cellDisabled = cell.getAttribute('data-disabled-click')
 
-  hideElements([chooseForm])
-  showElements([gameBoard, playersIdentifier])
-  listenCellClicks()
+      if(cellDisabled === 'false' && gameIsRunning) {
+        cell.setAttribute('data-disabled-click', true);
+        addImageOnCell(cell)
+        computePlayerAction(cell)
+        changePlayerTurn()
+      }
+    })
+  })
 }
 
-const isValidTurn = (clickedCell) => {
-  if (clickedCell.innerText === 'X' || clickedCell.innerText === 'O'){
-    return false;
+const registerPlayerChoice = (choice) => {
+  if (choice.className === 'cross-button') {
+    playerOne.choice = 'cross'
+    playerTwo.choice = 'circle'
+  } else {
+    playerOne.choice = 'circle'
+    playerTwo.choice = 'cross'
   }
 
-  return true;
-};
+  hideElements([chooseForm]);
+  showElements([gameBoard, playersIdentifier]);
+  listenPlayersActions();
+}
 
-const userAction = (clickedCell, index) => {
-  if(isValidTurn(clickedCell) && isGameActive) {
-    clickedCell.innerText = currentPlayer;
-    clickedCell.classList.add(`player${currentPlayer}`);
-    updateBoard(index);
-    handleResultValidation();
-    changePlayer();
+const addImageOnCell = (cell) => {
+  const playerSign = document.createElement('img');
+  playerSign.classList.add('player-sign')
+
+  cell.appendChild(playerSign)
+  playerSign.src = `./../assets/icon-${currentPlayer.choice}.svg`
+}
+
+const computePlayerAction = (cell) => {
+  const markedCell = cell.getAttribute('data-cell-index')
+  const integerCellIndex = parseInt(markedCell)
+
+  currentPlayer.markedCells.push(integerCellIndex)
+  boardMarks.push(integerCellIndex)
+
+  checkTieConditions();
+  checkWinConditions();
+}
+
+const checkTieConditions = () => {
+  if (boardMarks.length >= 9 && gameIsRunning) {
+    gameIsRunning = false;
+
+    showElements([tieAnnouncement]);
+    hideElements([playersIdentifier, gameBoard])
   }
+}
+
+const checkWinConditions = () => {
+  winConditions.forEach(winCondition => {
+    const playerWin = winCondition.every((condition, index) => {
+      return condition === currentPlayer.markedCells[index]
+    })
+
+    if (playerWin) {
+      gameIsRunning = false;
+      announceWinner();
+    }
+  })
+}
+
+const announceWinner = () => {
+  const winnerTitle = document.getElementById('winner-title');
+
+  showElements([winnerAnnouncement]);
+  hideElements([playersIdentifier, gameBoard])
+  winnerTitle.innerHTML = `Congratulations, ${currentPlayer.name}, you win!`
+}
+
+const changePlayerTurn = () => {
+  currentPlayer === playerOne
+    ? currentPlayer = playerTwo
+    : currentPlayer = playerOne
+
+    playerTurnAnnouncement.innerHTML = `<strong>${currentPlayer.name}</strong>, your turn!`
+}
+
+const listenRefresh = () => {
+  document.addEventListener("keydown", event => {
+    if (event.key === 'F5') {
+      returnGame();
+    }
+  })
 }
 
 const returnGame = () => {
@@ -90,4 +160,6 @@ const returnGame = () => {
 }
 
 registerPlayersNames();
+listenRefresh();
 listenUserChoice();
+changePlayerTurn();

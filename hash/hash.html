@@ -1,51 +1,61 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<meta charset="UTF-8" />
+	<meta charset="UTF-8">
 	<title>Hash Game</title>
-	<link rel="icon" href=""/>
-	<link rel="stylesheet" href="./../reset.css"/>
-	<link rel="stylesheet" href="hash.css"/>
+	<link rel="icon" type="image/x-icon" href="./../assets/icon-circle.svg">
+	<link rel="stylesheet" href="./../reset.css">
+	<link rel="stylesheet" href="hash.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<header>
 		<div class="return-container" onclick="returnGame()">
-			<img src="./../assets/icon-return.svg" class="icon-return">
+			<img src="./../assets/icon-return.svg" alt="Return to menu" class="icon-return">
 			<p>Return</p>
 		</div>
-		<h1>Tic Toe Game</h1>
+		<h1>Tic Tac Toe Game</h1>
 	</header>
-	<section class="main-container">
+
+	<div id="main-container" class="main-container">
     <section id="choose-form" class="choose-form">
-      <p id="choose-title">Player 1, choose your side</p>
+      <h3 id="choose-title">Player 1, choose your side</h3>
       <div class="select-side">
-        <button id="cross-choice" name="possible-choice" class="cross-button" onclick="listenUserChoice()">
-        </button>
-        <button id="circle-choice" name="possible-choice" class="circle-button" onclick="listenUserChoice()">
-        </button>
+        <img src="./../assets/icon-cross.svg" alt="cross" id="cross-choice" class="cross-button">
+        <img src="./../assets/icon-circle.svg" alt="circle-button" id="circle-choice" class="circle-button">
       </div>
     </section>
 
 		<section id="players-names" class="players-name hide-element">
-			<img src="" class="player-icon">
-			<p>Player name, your turn!</p>
+			<h3 id="player-turn-announcement">Player name, your turn!</h3>
 		</section>
 
-		<section id="game-board" class="game-board hide-element">
-			<div data-cell-index="0" class="board-cell"></div>
-			<div data-cell-index="1" class="board-cell"></div>
-			<div data-cell-index="2" class="board-cell"></div>
-			<div data-cell-index="3" class="board-cell"></div>
-			<div data-cell-index="4" class="board-cell"></div>
-			<div data-cell-index="5" class="board-cell"></div>
-			<div data-cell-index="6" class="board-cell"></div>
-			<div data-cell-index="7" class="board-cell"></div>
-			<div data-cell-index="8" class="board-cell"></div>
-	</section>
-	</section>
-</body>
+		<div id="game-board" class="game-board hide-element">
+			<div data-cell-index="0" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="1" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="2" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="3" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="4" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="5" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="6" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="7" data-disabled-click="false" class="board-cell"></div>
+			<div data-cell-index="8" data-disabled-click="false" class="board-cell"></div>
+    </div>
 
-<script src="./hash.js" type="text/javascript"></script>
+    <section id="winner-announcement" class="winner-announcement hide-element">
+      <img src="./../assets/icon-trophy.svg" alt="Icon trophy" class="icon-trophy">
+      <h3 id="winner-title"> Congratulations! </h3>
+      <button class="end-button" onclick="returnGame()">Back to menu</button>
+    </section>
+
+    <section id="tie-announcement" class="tie-announcement hide-element">
+      <img src="./../assets/icon-tie.svg" alt="Icon tie" class="icon-tie">
+      <h3 id="tie-title"> A tie has occurred! </h3>
+      <button class="end-button" onclick="returnGame()">Back to menu</button>
+    </section>
+	</div>
+
+  <script src="./hash.js"></script>
+</body>
 </html>

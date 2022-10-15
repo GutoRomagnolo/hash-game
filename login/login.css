@@ -1,6 +1,6 @@
 @font-face {
   font-family: standardFont;
-  src: url('./../assets/creditverse.ttf');
+  src: url('./../assets/dilo-word.ttf');
 }
 
 body {
@@ -9,14 +9,14 @@ body {
   margin: 0;
   align-items: center;
   font-family: standardFont, sans-serif;
-  background: linear-gradient(184deg, rgba(18,18,18,1) 0%, rgba(44,44,44,1) 49%, rgba(80,80,80,1) 100%);
+  background: rgb(26, 26, 26);
   background-repeat: no-repeat;
   min-height: 100vh;
   justify-content: center;
 }
 
 h1 {
-  font-size: 4rem;
+  font-size: 5rem;
   text-align: center;
   line-height: 6rem;
   background-image: linear-gradient(110.1deg, rgb(241, 115, 30) 18.9%, rgb(231, 29, 54) 90.7%);
@@ -26,24 +26,34 @@ h1 {
   -moz-text-fill-color: transparent;
   -webkit-text-stroke: 0.100rem #ffff;
   -moz-text-stroke: 0.100rem #ffff;
-  padding-bottom: 3rem;
   font-family: standardFont;
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   padding-bottom: 2rem;
-}
-
-button {
-  font-family: standardFont;
 }
 
 header {
   margin: 0;
   display: flex;
+  flex-direction: column;
   width: 100%;
+  padding-bottom: 3rem;
   justify-content: center;
+  align-items: center;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.game-h1 {
+  padding: 0 1rem 0 1rem;
 }
 
 .login-form {
@@ -52,23 +62,30 @@ header {
   justify-content: center;
   align-items: center;
   padding: 3rem;
-  box-shadow: rgba(0, 0, 0, 0.29) 0 0.188rem 0.5rem;
-  background-color: #f9f9f9;
-  color: #000;
+  border-radius: 2%;
+  border: solid #fff;
+  box-shadow: rgba(0, 0, 0, 0.29) 0 0.188rem 0.313rem;
+  text-shadow: rgba(0, 0, 0, 0.5) 0.188rem 0.300rem;
+  background: rgb(34, 34, 34);
+  color: #fff;
 }
 
 .standard-input {
   padding: 0.5rem;
   margin-bottom: 1rem;
+  color: #fff;
   background-color: #7e7e7e1a;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  font-family: standardFont;
+  text-shadow: rgba(0, 0, 0, 0.5) 0.188rem 0.180rem;
   border: none;
-  font-family: 'Roboto';
   height: 2rem;
   width: 100%;
 }
 
 .standard-input:hover {
-  background-color: #4545451a;
+  background-color: #c2c2c21a;
 }
 
 .form-step {
@@ -79,42 +96,6 @@ header {
   transition: all 0.1s ease-in-out;
 }
 
-.choose-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.select-side {
-  display: flex;
-}
-
-.cross-button {
-  display: flex;
-  background: url(./../assets/icon-cross.svg);
-  background-repeat: no-repeat;
-  width: 4.5rem;
-  height: 4.5rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-
-.circle-button {
-  display: flex;
-  background: url(./../assets/icon-circle.svg);
-  background-repeat: no-repeat;
-  width: 5rem;
-  height: 5rem;
-  border: none;
-  cursor: pointer;
-  transition: all 0.1s ease-in-out;
-}
-
-/* .cross-button:hover, .circle-button:hover {
-  transform: scale(1.05);
-} */
-
 .icon-forward {
   width: 1.5rem;
 }
@@ -122,12 +103,20 @@ header {
 .submit-button {
   display: flex;
   align-items: center;
-  font-size: 1rem;
+  font-size: 2rem;
+  color: #fff;
   padding: 0.5rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-family: standardFont;
+  transition: all 0.1s ease-in-out;
+  background-color: #7e7e7e1a;
+  text-shadow: rgba(0, 0, 0, 0.5) 0.188rem 0.300rem;
+  border: 0;
 }
 
-.icon-disabled {
-  filter: contrast(0);
+.submit-button:hover {
+  transform: scale(1.05);
 }
 
 .hide-element {
