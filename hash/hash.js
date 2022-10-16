@@ -9,10 +9,12 @@ const tieAnnouncement = document.getElementById('tie-announcement');
 
 const playerOne = { markedCells: [] };
 const playerTwo = { markedCells: [] };
-const boardMarks = []
+const randomizePlayerTurn = Math.random() < 0.5 ? playerOne : playerTwo;
+const boardMarks = [];
+const firstRound = true;
 
 let currentPlayer = null;
-let gameIsRunning = true;
+let gameEndByWin = false;
 
 const winConditions = [
   [0, 1, 2],
@@ -28,11 +30,12 @@ const winConditions = [
 const registerPlayersNames = () => {
   const playersNames = getNamesFromLocalStorage();
   
-  playerOne.name = playersNames[0]
-  playerTwo.name = playersNames[1]
+  playerOne.name = playersNames[0];
+  playerTwo.name = playersNames[1];
 
-  currentPlayer = playerOne;
-  playerChooseRequest.innerHTML = `<strong>${currentPlayer.name}</strong>, choose your size!`
+  currentPlayer = randomizePlayerTurn;
+
+  playerChooseRequest.innerHTML = `<strong>${currentPlayer.name}</strong>, choose your size!`;
 }
 
 const getNamesFromLocalStorage = () => {
@@ -41,11 +44,11 @@ const getNamesFromLocalStorage = () => {
 }
 
 const hideElements = (elementsToHide) => {
-  elementsToHide.forEach(element => element.classList.add('hide-element'))
+  elementsToHide.forEach(element => element.classList.add('hide-element'));
 }
 
 const showElements = (elementsToShow) => {
-  elementsToShow.forEach(element => element.classList.remove('hide-element'))
+  elementsToShow.forEach(element => element.classList.remove('hide-element'));
 }
 
 const listenUserChoice = () => {
@@ -55,7 +58,7 @@ const listenUserChoice = () => {
 
   possibleChoices.forEach(choice => {
     choice.addEventListener('click', () => {
-      registerPlayerChoice(choice)
+      registerPlayerChoice(choice);
     })
   })
 }
@@ -63,13 +66,13 @@ const listenUserChoice = () => {
 const listenPlayersActions = () => {
   boardCells.forEach(cell => {
     cell.addEventListener('click', () => {
-      const cellDisabled = cell.getAttribute('data-disabled-click')
+      const cellDisabled = cell.getAttribute('data-disabled-click');
 
-      if(cellDisabled === 'false' && gameIsRunning) {
+      if(cellDisabled === 'false') {
         cell.setAttribute('data-disabled-click', true);
-        addImageOnCell(cell)
-        computePlayerAction(cell)
-        changePlayerTurn()
+        addImageOnCell(cell);
+        computePlayerAction(cell);
+        changePlayerTurn();
       }
     })
   })
@@ -91,58 +94,61 @@ const registerPlayerChoice = (choice) => {
 
 const addImageOnCell = (cell) => {
   const playerSign = document.createElement('img');
-  playerSign.classList.add('player-sign')
+  playerSign.classList.add('player-sign');
 
   cell.appendChild(playerSign)
   playerSign.src = `./../assets/icon-${currentPlayer.choice}.svg`
 }
 
 const computePlayerAction = (cell) => {
-  const markedCell = cell.getAttribute('data-cell-index')
-  const integerCellIndex = parseInt(markedCell)
+  const markedCell = cell.getAttribute('data-cell-index');
+  const integerCellIndex = parseInt(markedCell);
 
-  currentPlayer.markedCells.push(integerCellIndex)
-  boardMarks.push(integerCellIndex)
+  currentPlayer.markedCells.push(integerCellIndex);
+  boardMarks.push(integerCellIndex);
 
-  checkTieConditions();
   checkWinConditions();
+  checkTieConditions();
+}
+
+const checkWinConditions = () => {
+  winConditions.forEach(winCondition => {
+    const playerOneWin = winCondition.every(condition => playerOne.markedCells.includes(condition));
+    const playerTwoWin = winCondition.every(condition => playerTwo.markedCells.includes(condition));
+
+    if (playerOneWin || playerTwoWin ) {
+      gameEndByWin = true;
+      announceWinner();
+    }
+  })
 }
 
 const checkTieConditions = () => {
-  if (boardMarks.length >= 9 && gameIsRunning) {
-    gameIsRunning = false;
+  if (boardMarks.length >= 9 && !gameEndByWin) {
 
     showElements([tieAnnouncement]);
     hideElements([playersIdentifier, gameBoard])
   }
 }
 
-const checkWinConditions = () => {
-  winConditions.forEach(winCondition => {
-    const playerOneWin = winCondition.every(condition => playerOne.markedCells.includes(condition))
-    const playerTwoWin = winCondition.every(condition => playerTwo.markedCells.includes(condition))
-
-    if (playerOneWin || playerTwoWin ) {
-      gameIsRunning = false;
-      announceWinner();
-    }
-  })
-}
-
 const announceWinner = () => {
   const winnerTitle = document.getElementById('winner-title');
 
   showElements([winnerAnnouncement]);
-  hideElements([playersIdentifier, gameBoard])
-  winnerTitle.innerHTML = `Congratulations, ${currentPlayer.name}, you win!`
+  hideElements([playersIdentifier, gameBoard]);
+  winnerTitle.innerHTML = `Congratulations, ${currentPlayer.name}, you win!`;
 }
 
-const changePlayerTurn = () => {
-  currentPlayer === playerOne
+const changePlayerTurn = (firstRound) => {
+  if (firstRound) {
+    currentPlayer = randomizePlayerTurn
+  } else {
+    currentPlayer === playerOne
     ? currentPlayer = playerTwo
     : currentPlayer = playerOne
+  }
 
-    playerTurnAnnouncement.innerHTML = `<strong>${currentPlayer.name}</strong>, your turn!`
+  playerTurnAnnouncement.innerHTML = `<strong>${currentPlayer.name}</strong>, your turn!`;
 }
 
 const listenRefresh = () => {
@@ -161,4 +167,4 @@ const returnGame = () => {
 registerPlayersNames();
 listenRefresh();
 listenUserChoice();
-changePlayerTurn();
+changePlayerTurn(firstRound);
