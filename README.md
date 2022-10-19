@@ -43,7 +43,7 @@
           Os campos são avaliados a cada alteração, através de um eventListener, para garantir que o botão de iniciar só seja habilitado com ambos os campos de nome               preenchidos;
         </li>
         <li>
-          Ao submeter o form de login, ambos os nomes serão guardados no local storage do navegador, pois seram utilizados para identificação ao decorrer do jogo.
+          Ao submeter o form de login, ambos os nomes são guardados no local storage do navegador, pois serão utilizados para identificação ao decorrer do jogo.
         </li>
       <ul>
     </td>
