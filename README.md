@@ -55,7 +55,7 @@
 <table>
   <tr>
     <th>
-      Página inicial
+      Escolha dos lados
     </th>
     <th>
       Características principais
@@ -83,7 +83,7 @@
 <table>
   <tr>
     <th>
-      Página inicial
+      Tabuleiro do jogo
     </th>
     <th>
       Características principais
